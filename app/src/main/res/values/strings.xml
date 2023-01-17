@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">MyWater</string>
+    <string name="pref_notification_message_value">¡Qué tal, hora de tomar agua!</string>
+    <string name="add_info_text">Por favor, ingresa la información para brindarte una experiencia personalizada</string>
+    <string name="str_continue">Continuar</string>
+    <string name="enter_your_name_hint">Ingresa tu nombre</string>
+    <string name="age_hint">Ingresa tu edad</string>
+    <string name="weight_hint">Ingresa tu peso (Kg)</string>
+    <string name="custom_intake_hint">Ingresa tu objetivo personalizado en mililitros</string>
+    <string name="workout_hint">Minutos diarios de actividad física</string>
+    <string name="wakeup_hint">Hora Despertar</string>
+    <string name="sleeping_hint">Hora Dormir</string>
+    <string name="tagline_text">Vamos a mantenerte hidratado</string>
+    <string name="get_started">Empezar</string>
+    <string name="edit_info_text">Modificar tu información</string>
+    <string name="update">Actualizar</string>
+    <string name="notif_setting_header">Ajustes de notificación</string>
+    <string name="notif_messsage_hint">Mensaje de la notificación</string>
+    <string name="notif_tone_hint">Tono de la notificación</string>
+    <string name="notif_freq_hint">Frecuencia de la notificación</string>
+    <string name="walkthrough_text_one">El agua es el 60 porciento de tu peso, tu cuerpo depende de ella para vivir.</string>
+    <string name="walkthough_text_two">La escasez de agua puede deshidratarte, esto drena tu energia y lleva a graves problemas de salud</string>
+    <string name="walkthrough_text_three">Cada célula de tu cuerpo necesita del agua para realizar sus funciones correctamente.</string>
+</resources>
