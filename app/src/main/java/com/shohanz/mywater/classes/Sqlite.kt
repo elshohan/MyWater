@@ -5,11 +5,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
-class SqliteHelper(context: Context) : SQLiteOpenHelper(
-    context,
-    DATABASE_NAME, null,
-    DATABASE_VERSION
-) {
+class Sqlite(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object {
         private const val DATABASE_VERSION = 1
@@ -22,12 +18,10 @@ class SqliteHelper(context: Context) : SQLiteOpenHelper(
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
-
         val CREATE_STATS_TABLE = ("CREATE TABLE " + TABLE_STATS + "("
                 + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_DATE + " TEXT UNIQUE,"
                 + KEY_INTOOK + " INT," + KEY_TOTAL_INTAKE + " INT" + ")")
         db?.execSQL(CREATE_STATS_TABLE)
-
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {

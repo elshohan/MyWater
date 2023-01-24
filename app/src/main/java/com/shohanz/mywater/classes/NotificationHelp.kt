@@ -88,7 +88,7 @@ class NotificationHelp(val ctx: Context) {
 
     private fun shallNotify(): Boolean {
         val prefs = ctx.getSharedPreferences(AppUtils.USERS_SHARED_PREF, AppUtils.PRIVATE_MODE)
-        val sqliteHelper = SqliteHelper(ctx)
+        val sqliteHelper = Sqlite(ctx)
 
         val startTimestamp = prefs.getLong(AppUtils.WAKEUP_TIME, 0)
         val stopTimestamp = prefs.getLong(AppUtils.SLEEPING_TIME_KEY, 0)

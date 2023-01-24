@@ -4,12 +4,11 @@ import android.app.NotificationManager
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Handler
 import android.util.TypedValue
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.shohanz.mywater.classes.AlarmHelp
-import com.shohanz.mywater.classes.SqliteHelper
+import com.shohanz.mywater.classes.Sqlite
 import com.shohanz.mywater.classes.AppUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -19,12 +18,11 @@ class MainActivity : AppCompatActivity() {
     private var totalIntake: Int = 0
     private var inTook: Int = 0
     private lateinit var sharedPref: SharedPreferences
-    private lateinit var sqliteHelper: SqliteHelper
+    private lateinit var sqliteHelper: Sqlite
     private lateinit var dateNow: String
     private var notificStatus: Boolean = false
     private var selectedOption: Int? = null
     private var snackbar: Snackbar? = null
-    private var doubleBackToExitPressedOnce = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         sharedPref = getSharedPreferences(AppUtils.USERS_SHARED_PREF, AppUtils.PRIVATE_MODE)
-        sqliteHelper = SqliteHelper(this)
+        sqliteHelper = Sqlite(this)
         totalIntake = sharedPref.getInt(AppUtils.TOTAL_INTAKE, 0)
 
         if (sharedPref.getBoolean(AppUtils.FIRST_RUN_KEY, true)) {
@@ -84,9 +82,6 @@ class MainActivity : AppCompatActivity() {
 
         // <INICIO> Funciones Técnicas - OnClickListener
 
-        // Botón Menú
-        //TODO OnClickListener Menú
-
         // Boton Añadir (+)
         fabAdd.setOnClickListener {
             if (selectedOption != null) {
@@ -94,10 +89,6 @@ class MainActivity : AppCompatActivity() {
                     if (sqliteHelper.addIntook(dateNow, selectedOption!!) > 0) {
                         inTook += selectedOption!!
                         setWaterLevel(inTook, totalIntake)
-
-                        Snackbar.make(it, "¡Se registro tu ingesta de agua!", Snackbar.LENGTH_SHORT)
-                            .show()
-
                     }
                 } else {
                     Snackbar.make(it, "Ya has llegado a tu objetivo", Snackbar.LENGTH_SHORT).show()
@@ -120,7 +111,22 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Botón Notificación
-        //TODO OnClickListener Notificación
+        btnNotific.setOnClickListener {
+            notificStatus = !notificStatus
+            sharedPref.edit().putBoolean(AppUtils.NOTIFICATION_STATUS_KEY, notificStatus).apply()
+            if (notificStatus) {
+                btnNotific.setImageDrawable(getDrawable(R.drawable.ic_bell))
+                Snackbar.make(it, "Notificaciones Activadas", Snackbar.LENGTH_SHORT).show()
+                alarm.setAlarm(
+                    this,
+                    sharedPref.getInt(AppUtils.NOTIFICATION_FREQUENCY_KEY, 30).toLong()
+                )
+            } else {
+                btnNotific.setImageDrawable(getDrawable(R.drawable.ic_bell_disabled))
+                Snackbar.make(it, "Notificaciones Desactivadas", Snackbar.LENGTH_SHORT).show()
+                alarm.cancelAlarm(this)
+            }
+        }
 
         // Botón 50ml
         op50ml.setOnClickListener {
@@ -217,20 +223,5 @@ class MainActivity : AppCompatActivity() {
         if ((inTook * 100 / totalIntake) > 140) {
             Snackbar.make(main_activity_parent, "¡Llegaste a tu objetivo!", Snackbar.LENGTH_SHORT).show()
         }
-    }
-
-    // Función de Experiencia de Usuario - Retroceder
-    override fun onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-            super.onBackPressed()
-            return
-        }
-        this.doubleBackToExitPressedOnce = true
-        Snackbar.make(
-            this.window.decorView.findViewById(android.R.id.content),
-            "Por favor, pulsa Atrás otra vez para salir",
-            Snackbar.LENGTH_SHORT
-        ).show()
-        Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 1000)
     }
 }
