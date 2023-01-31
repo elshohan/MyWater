@@ -15,3 +15,8 @@ Modo de Uso:
 ![ae1e6e6f-cf76-4354-b366-2f198471418c](https://user-images.githubusercontent.com/106894979/215759731-deb35e46-85a2-42a8-85de-b10de755856d.jpg)
 
 3: Seleccionarás un cuadrado con la cantidad promedio de agua que ingeriste y pulsarás en el botón inferior de agregar, esto añadirá el registro de agua y cada que recibas una notificación deberás volver a la aplicación para registrar tu ingesta de agua.
+
+
+![f8bb5189-9718-467b-88ca-ee4c8ae206df](https://user-images.githubusercontent.com/106894979/215774473-edc63747-39cb-4a54-89d1-9f25d25f1e5d.jpg)
+
+Cada media hora recibirás una notificación recordandote que debes tomar agua.
